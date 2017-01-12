@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Brief Overview of ES2015+ | BOTS.sh</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+
+      /* ----- Fonts ----- */
+
+      @font-face {
+        font-family: Karla;
+        src: url('fonts/Karla/Karla-Regular.ttf')
+      }
+
+      /* ----- Remark overrides ----- */
+
+      .remark-slide-scaler {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .remark-container,
+      .remark-notes-area {
+        background: black;
+      }
+
+      .remark-slide-content {
+        padding: 1em 3em;
+      }
+
+      .remark-slide-content h1 {
+        font-size: 3.5em;
+        line-height: 110%
+      }
+
+      .remark-slide-content h2 {
+        font-size: 2.5em
+      }
+
+      .remark-slide-content.full-code {
+        padding: 0
+      }
+      .full-code pre {
+        margin: 0
+      }
+      .remark-slide>.center pre {
+        text-align: left;
+      }
+
+      /* ----- BOTS styles ----- */
+
+      .toprightgap {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 420px;
+        height: 280px;
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.6);
+        background-image: url(images/one-way.svg);
+        background-size: 114%;
+        background-position: 50% 50%;
+      }
+
+      .slidesLocation{
+        position: absolute;
+        bottom: 0;
+        right: 30px;
+      }
+
+      .slidesLocation p a {
+        color: white;
+        text-shadow: 1px 1px 2px black;
+      }
+
+      #backbone1 h1,
+      #backbone2 h1,
+      #react1 h1 {
+        margin: 10px 0;
+        font-size: 1.2em;
+      }
+      #backbone1 p,
+      #backbone2 p,
+      #react1 p {
+        font-size: 1em;
+        margin: 5px 0;
+      }
+      #backbone1 textarea,
+      #backbone2 textarea,
+      #react1 textarea {
+        font-size: 1em;
+        height: 1.5em;
+        width: 100%;
+      }
+
+      .title-page .react-logo {
+        width: 250px;
+      }
+      h1#react-101 {
+        margin-top: 40px;
+      }
+
+      .title-page .bots-logo-container {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 400px;
+        height: 96px;
+        padding: 0 50px 50px 0;
+      }
+
+      .title-page .bots-logo {
+        width: 100%;
+      }
+
+      body {
+        font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+      }
+      h1, h2, h3, p, ol {
+        font-weight: normal;
+        color: #3d3e56;
+      }
+
+      p, h3 {
+        font-size: 1.8em;
+      }
+
+      ol, ul {
+        font-size: 1.7em
+      }
+
+
+
+      a,
+      strong {
+        color: #0e83f1;
+      }
+
+      strong {
+        font-weight: inherit;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 2px solid #EBEAEA;
+      }
+
+
+      .aside p {
+        font-size: 1em;
+        color: #ADA7AB
+
+      }
+
+      .context {
+        filter: grayscale(0.8) opacity(0.8);
+      }
+
+      pre + pre {
+        margin-top: 0;
+      }
+
+      /* ----- Template styles ----- */
+
+      .brown {
+        background: #0c74d5;
+      }
+
+      .brown h1,
+      .brown h2,
+      .brown p,
+      .brown .remark-inline-code {
+        color: white
+      }
+
+      .blue {
+        background: #0c74d5;
+      }
+      .blue h1, .blue h2, .blue h3 {
+        color: white
+      }
+      .blue p {
+        color: #a4f0FF;
+      }
+
+      .blue a {
+        color: white;
+      }
+
+      .cover {
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        background-size: cover !important;
+        background-position-x: center !important;
+        background-position-y: center !important;
+        background-repeat: no-repeat !important
+      }
+
+      .contain {
+        -webkit-background-size: contain !important;
+        -moz-background-size: contain !important;
+        background-size: contain !important;
+        background-position-x: center !important;
+        background-position-y: center !important;
+        background-repeat: no-repeat !important
+      }
+
+      .backbone-image {
+        background-image: url('images/backbone.jpg');
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        width: 280px;
+      }
+
+      .title-page p {
+        font-size: 1.4em;
+      }
+
+      .bots-is {
+        background-image: url('images/bots-bg.png');
+      }
+
+      .hot-reload {
+        background-image: url('images/hot.gif');
+      }
+
+      .hot-storybook {
+        background-image: url('images/hot-storybook.gif');
+      }
+
+      .bots-is h1, .bots-is h2, .bots-is h3, .bots-is a {
+        color: black;
+        text-shadow: 1px 1px 2px white;
+      }
+
+      .spaghetti {
+        background-image: url('images/off-and-on.gif')
+      }
+
+      .spaghetti h2 {
+        color: white
+      }
+
+      .nightmare {
+        background-image: url('images/nightmare.gif')
+      }
+
+      .nightmare h2 {
+        color: white
+      }
+
+      .f5 {
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 6px 12px;
+      }
+
+      .rebuild {
+        background-image: url('images/demolition.gif')
+      }
+
+      .rebuild h1 {
+        color: white
+      }
+
+
+      .happy-happy-joy-joy {
+        background-image: url('images/happy.jpg')
+      }
+
+      /* ----- Code ----- */
+
+      .has-code {
+        background: #101010;
+        padding: 0 2em
+      }
+
+      .has-code h1, .has-code h2, .has-code h3, .has-code p {
+        color: #EBEAEA
+      }
+
+      .has-code .remark-inline-code {
+        color: #A4D0DE
+      }
+
+      .remark-code, .remark-inline-code {
+        font-family: Monaco, "Lucida Console", monospace;
+        font-size: 0.8em;
+      }
+      .remark-inline-code {
+        color: #2B497F
+      }
+      .remark-code-line-highlighted,
+      .remark-code-span-highlighted {
+        background-color: #333;
+      }
+
+      .zoom-code .remark-code {
+        font-size: 1.1em;
+      }
+
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+
+      .comment, .hljs-title {
+        color: #969896;
+      }
+
+      .hljs-variable, .hljs-attribute, .hljs-tag, .hljs-regexp, .hljs-ruby .constant, .hljs-xml .tag .title, .hljs-xml .pi,
+      .hljs-xml .doctype, .hljs-html .doctype, .hljs-css .id, .hljs-css .class, .hljs-css .pseudo {
+        color: #cc6666;
+      }
+
+      .hljs-number, .hljs-preprocessor, .hljs-built_in, .hljs-literal, .hljs-params, .hljs-constant {
+        color: #de935f;
+      }
+
+
+      .hljs-class, .hljs-ruby .class .title, .hljs-css .rules .attribute {
+        color: #f0c674;
+      }
+
+      .hljs-string, .hljs-value, .hljs-inheritance, .hljs-header, .hljs-ruby .symbol, .hljs-xml .cdata {
+        color: #9CDBA5 !important;
+      }
+
+      .hljs-css .hexcolor {
+        color: #8abeb7;
+      }
+
+      .hljs-function, .hljs-python .decorator, .hljs-python .title, .hljs-ruby .function .title, .hljs-ruby .title .keyword,
+      .hljs-perl .sub, .hljs-javascript .title, .hljs-coffeescript .title,
+      .hljs-default .hljs-subst {
+        color: #81a2be;
+      }
+
+      .hljs-keyword, .hljs-javascript .function {
+        color: #7D8FB0;
+        font-weight: normal !important;
+      }
+
+      .hljs-default .hljs {
+        background: #101010;
+        color: #c5c8c6;
+        font-family: Menlo, Monaco, Consolas, monospace;
+        line-height: 1.5;
+        border: 1px solid #ccc;
+        padding: 0 10px;
+      }
+
+
+      .hljs-default .hljs-tag,
+      .hljs-default .xml .hljs-tag,
+      .hljs-default .hljs-tag .hljs-title,
+      .hljs-default .xml .hljs-tag .hljs-title {
+        color: #66ADC7;
+        font-weight: normal !important;
+      }
+
+      .hljs-default .hljs-title {
+        color: #16BECC;
+        font-weight: normal !important;
+      }
+
+      code, .remark-code {border: none !important}
+
+      .hljs-default .javascript .xml {
+        opacity: 1;
+      }
+
+      code .lolight,
+      code .lolight * {
+        color: #666 !important;
+      }
+
+      code .hilight,
+      code .hilight * {
+        color: #5DC744 !important;
+      }
+
+      /*************/
+      .beforeAfter {
+        display: flex;
+          width: 100%;
+      }
+      .before,
+      .after {
+        box-sizing: border-box;
+        padding: 10px;
+        width: 50%;
+        flex: 0 0 50%;
+      }
+
+      .before {
+        border-right: 1px solid #999;
+      }
+
+      .before:before,
+      .after:before {
+        color: white;
+        font-size: 2em;
+      }
+
+      .before:before {
+        content: 'Before';
+      }
+      .after:before {
+        content: 'After';
+      }
+    </style>
+    <script src='underscore-min.js'></script>
+    <script src='zepto.min.js'></script>
+    <script src='backbone-min.js'></script>
+    <script src='react.min.js'></script>
+    <script src='react-dom.min.js'></script>
+  </head>
+  <body>
+    <script id="source" language="remarkjs"><!--
+
+class: title-page, blue
+
+# Brief Overview of ES2015+
+
+Benjie Gillam
+
+[BOTS.sh](https://BOTS.sh)
+
+<div class='bots-logo-container'>
+<img src='images/bots-full-logo.png' title='BOTS logo' class='bots-logo'>
+</div>
+
+
+---
+
+class: bots-is, cover
+
+## BOTS: online web service automation IDE
+
+### Rapidly develop, deploy and debug powerful web integrations.
+
+.slidesLocation[
+
+[benjie.github.io/es2015-overview/](https://benjie.github.io/es2015-overview/)
+]
+
+
+---
+
+class: middle
+
+# Content
+
+1. History: ES3/5 (4?)
+2. TC39 Stages: 0, 1, 2, 3, 4
+3. ES2015 (ES6)
+4. ES2016 (ES7)
+5. ES2017+
+6. Where can I use them?
+---
+
+class: middle, center, brown
+
+# 1: History: ES3 and ES5
+---
+
+class: middle
+
+Mocha was created in 10 days by Brendan Eich in May 1995, renamed LiveScript in September and finally JavaScript in December
+
+ECMA released the official ECMA-262 Ed.1 in 1997: ECMAScript
+
+ECMAScript 2 released in 1998, ES3 in 1999
+
+ES4 worked on around 2007-08, but fell through
+
+ES5 finally published in 2009
+
+---
+
+# ES5
+
+- `use strict`
+- JSON.parse / JSON.stringify
+- Function.prototype.bind
+- Array indexOf,every,some,map,filter,reduce,&hellip;
+- Object.defineProperty (getters/setters)
+- Object.create
+- Object.keys
+- Object.seal (don't add/remove properties)
+- Object.freeze (don't change anything)
+
+---
+
+class: middle, center, brown
+
+# 2: TC39 Stages
+
+How new JavaScript features are standardised and released
+
+---
+
+class: middle, center
+
+Following the ES4 debacle everyone got together and started making official
+specifications for features from ES4/ES.Harmony.
+
+They came up with the TC39 Process for managing language change proposals. Tools
+like 6to5 (now 'Babel'), Traceur, and others came around as playgrounds for the
+new proposals.
+
+.aside[
+
+[https://tc39.github.io/process-document/](https://tc39.github.io/process-document/)
+]
+
+---
+
+class: middle, center
+
+## Stage 0: Strawman
+
+People just forwarding ideas
+---
+
+class: middle, center
+
+## Stage 1: Proposal
+
+A "champion" makes a case for the addition, and starts to shape out the solution.
+
+A rough API is proposed.
+
+The committee starts to take note.
+---
+
+class: middle, center
+
+## Stage 2: Draft
+
+The syntax is formalized using the official specification language.
+
+An experimental implementation is available.
+
+The committee deems this proposal to have legs.
+---
+
+class: middle, center
+
+## Stage 3: Candidate
+
+Solution is complete; needs external feedback before more work can be done.
+
+Only changes at this stage will be based on issues that implementors discover.
+---
+
+class: middle, center
+
+## Stage 4: Finished
+
+Good to go!
+
+SHIP IT!
+
+---
+
+class: middle, center
+
+The initial result of the first round of these proposals was ES6 - vendors
+started shipping features from it before it was finally published.
+
+Just before ES6 was to be officially released, TC39 decided to move to a yearly
+model for new standards, and thus renamed ES6 to ES2015.
+
+
+---
+
+class: middle, center, brown
+
+# 4: ES2015 (ES6)
+
+---
+
+class: center, has-code
+
+# ES2015: `let` and `const`
+
+.beforeAfter[
+.before[
+```js
+var i = 'i';
+var seven = 7;
+if (seven < 6) i = 'I';
+if (i == 'i') {
+  var j = 'j';
+}
+seven++; // e.g. typo
+console.log(j == 'j'); // true
+```
+]
+
+.after[
+```js
+let i = 'i';
+const seven = 7;
+if (seven < 6) i = 'I';
+if (i == 'i') {
+  const j = 'j'; // braces-scoped
+}
+seven++; // ERROR: const
+console.log(j == 'j'); // ERROR:
+         // j doesn't exist
+```
+]
+]
+
+---
+
+class: center, has-code
+
+# ES2015: default function parameters
+
+.beforeAfter[
+.before[
+```js
+function foo(bar, baz) {
+  if (baz === undefined) {
+    baz = [];
+  }
+  return qux(bar, baz, 'quux');
+}
+```
+]
+
+.after[
+```js
+function foo(bar, baz = []) {
+  return qux(bar, baz, 'quux');
+}
+```
+]
+]
+---
+
+class: center, has-code
+
+# ES2015: rest/spread parameters
+
+.beforeAfter[
+.before[
+```js
+function foo(bar) {
+  var rest = 
+    Array.prototype.slice.call(
+      arguments,
+      1
+    );
+  console.log(rest.length);
+  return qux.apply(
+    null,
+    [bar].concat(rest)
+  );
+}
+```
+]
+
+.after[
+```js
+function foo(bar, ...rest) {
+  console.log(rest.length);
+  return qux(bar, ...rest);
+}
+```
+]
+]
+---
+
+class: center, has-code
+
+# ES2015: template strings
+.beforeAfter[
+.before[
+```js
+var str = '' + a + ' + ' + b + ' = ' + c;
+```
+]
+
+.after[
+```js
+const str = `${a} + ${b} = ${c}`;
+```
+]
+]
+
+---
+
+class: center, has-code
+
+# ES2015: object literal extensions
+
+.beforeAfter[
+.before[
+```js
+var a = 1, b = 2, c = 3;
+var obj = {
+  a: a,
+  b: b,
+};
+obj['a' + a + 'b' + b] = c;
+```
+]
+
+.after[
+```js
+const a = 1, b = 2, c = 3;
+const obj = {
+  a,
+  b,
+  [`a${a}b${b}`]: c,
+};
+```
+]
+]
+
+---
+
+class: center, has-code
+
+# ES2015: arrow functions
+
+.beforeAfter[
+.before[
+```js
+var get = function(attr) {
+  return this[attr];
+}.bind(this);
+```
+]
+.after[
+```js
+const get = (attr) => {
+  return this[attr];
+};
+// or
+const get = (attr) => this[attr];
+// or
+const get = attr => this[attr];
+```
+]
+]
+---
+
+class: center, has-code
+
+# ES2015: destructuring
+
+```js
+var arr = [1, 'foo', /regex/];
+var obj = {two: 2, bar: 'bar', fn: function(){}};
+```
+
+.beforeAfter[
+.before[
+```js
+var one = arr[0],
+    foo = arr[1],
+    regex = arr[2];
+var two = obj.two,
+    bar = obj.bar,
+    fn = obj.fn;
+```
+]
+.after[
+```js
+const [one, foo, regex] = arr;
+const {two, bar, fn} = obj;
+```
+]
+]
+---
+
+class: center, has-code
+
+# ES2015: destructuring
+
+.beforeAfter[
+.before[
+```js
+```
+]
+.after[
+```js
+```
+]
+]
+
+---
+
+class: middle, center, brown
+
+# 5: ES2016 (ES7)
+---
+
+class: middle, center, brown
+
+# 6: ES2017
+
+---
+
+class: normal, center, middle
+
+## OMG THIS IS SO AWESOME, HOW CAN I GET ME SOME OF THAT ES8 GOODNESS?
+
+Well, Babel of course! https://babeljs.io/
+
+
+---
+
+class: bots-is, cover
+
+# Thank you!
+
+### If you like playing with new tech that'll make you more productive; we're looking for alpha testers!
+### benjie at [BOTS.sh](https://BOTS.sh)
+
+.slidesLocation[
+
+[benjie.github.io/es2015-overview/](https://benjie.github.io/es2015-overview/)
+]
+
+--></script>
+    <script src="remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        source: (document.getElementById("source").innerHTML).replace(/^<!--|-->$/g, ""),
+        slideNumberFormat: function (current, total) { return null },
+        ratio: '4:3',
+        highlightLines: true,
+        highlightSpans: false // We need ES6 backticks
+      });
+      var HomeView = Backbone.View.extend({
+        template: _.template('<h1>Hello World!</h1>' +
+          '<p>Random number: <span><%- number %></span> (click for another)</p>' +
+          '<textarea>Notes...</textarea>'),
+
+        events: {
+          'click p': 'render',
+          'keydown textarea': 'stopPropagation',
+          'keypress textarea': 'stopPropagation',
+        },
+
+        stopPropagation: function(e) {
+          e.stopPropagation();
+        },
+
+        randomNumber: function() {
+          return Math.floor(Math.random() * 100) + 1;
+        },
+
+        render: function() {
+          this.$el.html(this.template({
+            number: this.randomNumber()
+          }));
+        }
+      });
+      var HomeView2 = Backbone.View.extend({
+        template: _.template('<h1>Hello World!</h1>' +
+          '<p class="_button">Random number: ' +
+            '<span><%- number %></span> (click for another)' +
+          '</p>' +
+          '<textarea>Notes...</textarea>'),
+        events: {
+          'click ._button': 'newNumber',
+          'keydown textarea': 'stopPropagation',
+          'keypress textarea': 'stopPropagation',
+        },
+        stopPropagation: function(e) {
+          e.stopPropagation();
+        },
+        randomNumber: function() {
+          return Math.floor(Math.random() * 100) + 1;
+        },
+        newNumber: function(e) {
+          this.$("._button span").html(this.randomNumber());
+        },
+        render: function() {
+          this.$el.html(this.template({
+            number: this.randomNumber()
+          }));
+        }
+      });
+      const backbone1 = new HomeView();
+      $("#backbone1").append(backbone1.el);
+      backbone1.render();
+      const backbone2 = new HomeView2();
+      $("#backbone2").append(backbone2.el);
+      backbone2.render();
+      const randomNumber = function() {return Math.floor(Math.random() * 100) + 1;}
+
+      const stopPropagation = (e) => e.stopPropagation();
+
+      const HomeView3 = React.createClass({
+        getInitialState: function() {
+          return {randomNumber: randomNumber()};
+        },
+
+        newNumber: function() {
+          this.setState({randomNumber: randomNumber()});
+        },
+
+        render: function() {
+          return (
+            React.createElement('div', null,
+              React.createElement('h1', null, 'Hello World!'),
+              React.createElement('p', {onClick: this.newNumber.bind(this)},
+                'Random number: ', this.state.randomNumber, ' (click for another)'
+              ),
+              React.createElement('textarea', {onKeyPress: stopPropagation, onKeyDown: stopPropagation}, 'Notes...')
+            )
+          );
+        }
+      });
+      ReactDOM.render(React.createElement(HomeView3), $("#react1")[0]);
+    </script>
+  </body>
+</html>
