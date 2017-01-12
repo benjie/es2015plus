@@ -715,6 +715,9 @@ var a = 1, b = 2, c = 3;
 var obj = {
   a: a,
   b: b,
+  method: function() {
+    //...
+  },
 };
 obj['a' + a + 'b' + b] = c;
 ```
@@ -726,6 +729,9 @@ const a = 1, b = 2, c = 3;
 const obj = {
   a,
   b,
+  method() {
+    //...
+  },
   [`a${a}b${b}`]: c,
 };
 ```
@@ -765,8 +771,8 @@ class: center, has-code
 # ES2015: destructuring
 
 ```js
-var arr = [1, 'foo', /regex/];
-var obj = {two: 2, bar: 'bar', fn: function(){}};
+var arr = [1, 'foo', /regex/, 10, 20, 30, 40];
+var obj = {two: 2, bar: 'bar', fn: function(){}, a: 1, b: 2, c: 3};
 ```
 
 .beforeAfter[
@@ -774,7 +780,8 @@ var obj = {two: 2, bar: 'bar', fn: function(){}};
 ```js
 var one = arr[0],
     foo = arr[1],
-    regex = arr[2];
+    regex = arr[2],
+    rest = arr.slice(3);
 var two = obj.two,
     bar = obj.bar,
     fn = obj.fn;
@@ -782,7 +789,7 @@ var two = obj.two,
 ]
 .after[
 ```js
-const [one, foo, regex] = arr;
+const [one, foo, regex, ...rest] = arr;
 const {two, bar, fn} = obj;
 ```
 ]
@@ -791,18 +798,100 @@ const {two, bar, fn} = obj;
 
 class: center, has-code
 
-# ES2015: destructuring
+# ES2015: classes
 
 .beforeAfter[
 .before[
 ```js
+function Foo() {
+  Bar.call(this);
+  this.val = true;
+}
+var _Bar = function() {};
+_Bar.prototype = Bar.prototype;
+Foo.prototype = new _Bar();
+// TODO: copy attrs from Bar to Foo
+
+Foo.meaning = function() {
+  return 42;
+};
+
+Foo.prototype.getBaz = function() {
+  return 'baz';
+};
 ```
 ]
 .after[
 ```js
+class Foo extends Bar {
+  static meaning() {
+    return 42;
+  }
+
+  getBaz() {
+    return 'baz';
+  }
+}
 ```
 ]
 ]
+
+---
+
+class: center, has-code
+
+# ES2015: Promises
+
+```js
+const waitTwoSeconds = () => new Promise((resolve, reject) => {
+  setTimeout(resolve, 2000);
+});
+
+const doSomething = () => new Promise(...);
+
+waitTwoSeconds()
+  .then(
+    return doSomething()
+  )
+  .then(
+    console.log('DONE!');
+  )
+  .catch(error => {
+    console.error('ERROR OCCURRED!');
+    console.dir(error);
+  });
+```
+---
+
+class: center, has-code
+
+# ES2015: Generators
+
+```js
+function* idMaker(){
+    var index = 0;
+    while(true)
+        yield index++;
+}
+
+var gen = idMaker(); // "Generator { }"
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+```
+
+---
+
+# ES2015: More features
+
+- Map
+- Set
+- WeakMap
+- WeakSet
+- Proxy
+- Symbol
+- ...
 
 ---
 
@@ -811,9 +900,118 @@ class: middle, center, brown
 # 5: ES2016 (ES7)
 ---
 
+# ES2016: More features
+
+- Exponentiation `a ** b`
+- Array.prototype.includes
+- Various generator fixes
+- Nested rest destructuring
+
+---
+
 class: middle, center, brown
 
 # 6: ES2017
+
+---
+
+class: has-code
+
+# ES2017: async/await
+
+(Finished!)
+
+```js
+async function fetchJson(url) {
+  try {
+    let request = await fetch(url);
+    let text = await request.text();
+    return JSON.parse(text);
+  }
+  catch (error) {
+    console.log(`ERROR: ${error.stack}`);
+  }
+}
+```
+.aside[
+[http://www.2ality.com/2016/02/async-functions.html](http://www.2ality.com/2016/02/async-functions.html)
+]
+---
+
+class: has-code
+
+## ES2017: rest/spread properties
+
+```js
+var obj = {two: 2, bar: 'bar', fn: function(){}, a: 1, b: 2, c: 3};
+```
+
+.beforeAfter[
+.before[
+```js
+var obj2 = Object.assign(
+  {}, obj, {d: 4, e: 5});
+var two = obj.two,
+    bar = obj.bar,
+    fn = obj.fn;
+var other = Object.keys(obj)
+  .filter(function(key){
+    return ['two', 'bar', 'fn']
+      .indexOf(key) < 0;
+  })
+  .reduce(
+    function(memo, key) {
+      memo[key] = obj[key];
+      return memo;
+    }, {});
+```
+]
+.after[
+```js
+const obj2 = {
+  ...obj,
+  d: 4,
+  e: 5
+};
+const {two, bar, fn, ...other} = obj;
+```
+]
+]
+
+---
+
+# ES2017: More features
+
+Finished:
+
+- String.prototype.padStart/padEnd
+- Object.entries
+- Object.values
+- Trailing commas in function parameter lists
+  `function(a, b, c,) {...}`
+
+---
+
+class: has-code
+
+# ES2017: More features
+
+Asynchronous iterables (Stage 3)  
+```js
+for await (const c of createIterable()) {
+  ...
+}
+```
+
+SIMD (Stage 2)
+
+```js
+var a = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
+var b = SIMD.float32x4(5.0, 6.0, 7.0, 8.0);
+var c = SIMD.float32x4.add(a,b);
+```
+
+
 
 ---
 
