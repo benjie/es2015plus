@@ -465,17 +465,19 @@ class: middle
 
 # Content
 
-1. History: ES3/5 (4?)
-2. TC39 Stages: 0, 1, 2, 3, 4
-3. ES2015 (ES6)
-4. ES2016 (ES7)
-5. ES2017+
-6. Where can I use them?
+1. History: 1995-2009
+2. ES5
+3. TC39 Stages: 0, 1, 2, 3, 4
+4. ES2015 (ES6)
+5. ES2016 (ES7)
+6. ES2017 (ES8)
+7. ES2018+
+8. Where can I use it?
 ---
 
 class: middle, center, brown
 
-# 1: History: ES3 and ES5
+# 1: History: 1995-2009
 ---
 
 class: normal
@@ -497,6 +499,12 @@ ES4 worked on around 2007-08, but fell through
 --
 
 ES5 finally published in 2009
+
+---
+
+class: middle, center, brown
+
+# 2: ES5
 
 ---
 
@@ -526,7 +534,7 @@ ES5 finally published in 2009
 
 class: middle, center, brown
 
-# 2: TC39 Stages
+# 3: TC39 Stages
 
 How new JavaScript features are standardised and released
 
@@ -561,31 +569,26 @@ class: middle, center
 
 ## Stage 1: Proposal
 
-A "champion" makes a case for the addition, and starts to shape out the solution.
+A rough API is proposed by a "champion"
 
-A rough API is proposed.
-
-The committee starts to take note.
 ---
 
 class: middle, center
 
 ## Stage 2: Draft
 
-The syntax is formalized using the official specification language.
+Syntax formalized using official specification language
 
-An experimental implementation is available.
+Experimental implementation available
 
-The committee deems this proposal to have legs.
 ---
 
 class: middle, center
 
 ## Stage 3: Candidate
 
-Solution is complete; needs external feedback before more work can be done.
+Solution is complete; implementor may suggest changes
 
-Only changes at this stage will be based on issues that implementors discover.
 ---
 
 class: middle, center
@@ -798,6 +801,7 @@ const get = attr => this[attr];
 
 // or
 const get = (attr) => this[attr];
+
 // or
 const get = (attr) => {
   return this[attr];
@@ -891,12 +895,12 @@ const waitTwoSeconds = () => new Promise((resolve, reject) => {
 const doSomething = () => new Promise(...);
 
 waitTwoSeconds()
-  .then(
-    return doSomething()
-  )
-  .then(
+  .then(() => {
+    return doSomething();
+  })
+  .then(() => {
     console.log('DONE!');
-  )
+  })
   .catch(error => {
     console.error('ERROR OCCURRED!');
     console.dir(error);
@@ -909,7 +913,7 @@ class: center, has-code
 # ES2015: Generators
 
 ```js
-function* idMaker(){
+function* idMaker() {
     var index = 0;
     while(true)
         yield index++;
@@ -922,6 +926,52 @@ console.log(gen.next().value); // 1
 console.log(gen.next().value); // 2
 ```
 
+
+---
+
+class: center, has-code
+
+## ES2015: Tagged template literals
+
+--
+
+```js
+// Data from the user, e.g. query string
+const a = '1; delete from foo; --';
+const b = 2;
+```
+
+--
+
+```js
+const results = sql`SELECT * FROM foo WHERE bar = ${a} AND baz = ${b};`;
+```
+
+--
+
+```js
+function sql(strings, ...args) {
+  return db.query(strings.join('?'), args);
+}
+```
+
+--
+
+```js
+
+
+// equivalent to:
+const results = db.query(
+  'SELECT * FROM foo WHERE bar = ? AND baz = ?;',
+  [ '1; delete from foo; --', 2 ]
+);
+```
+
+--
+
+.aside[
+https://github.com/calebmer/pg-sql
+]
 ---
 
 # ES2015: More features
@@ -941,26 +991,38 @@ class: middle, center, brown
 # 5: ES2016 (ES7)
 ---
 
-# ES2016: More features
+# ES2016: Small release
 
 - Exponentiation `a ** b`
 - Array.prototype.includes
 - Various generator fixes
 - Nested rest destructuring
 
+
+--
+
+An excellent demonstration of the new release process working with
+incremental releases.
+
 ---
 
 class: middle, center, brown
 
-# 6: ES2017
+# 6: ES2017 (ES8)
+
+--
+
+OMG OMG OMG OMG
+
+--
+
+# 🙀😍🤓
 
 ---
 
 class: has-code
 
 # ES2017: async/await
-
-(Finished!)
 
 ```js
 async function fetchJson(url) {
@@ -974,14 +1036,57 @@ async function fetchJson(url) {
   }
 }
 ```
+
+--
+
+**Supported natively in Node 7.6+**, latest Chrome, Firefox, and Safari! (Sadly not iOS/Android yet.)
+
+--
+
 .aside[
 [http://www.2ality.com/2016/02/async-functions.html](http://www.2ality.com/2016/02/async-functions.html)
 ]
+
+
+---
+
+# ES2017: More features
+
+- Shared memory and atomics: `SharedArrayBuffer` / `Atomics`
+--
+
+- String.prototype.padStart / padEnd
+- Object.entries / Object.values
+--
+
+- Trailing commas in function parameter lists and calls
+  `function(a, b, c,) {...}`
+
+--
+
+ES2017 is now feature frozen
+
+---
+
+class: middle, center, brown
+
+# Fin
+
+--
+
+Only kidding!
+
+---
+
+class: middle, center, brown
+
+# 7: ES2018+ (ES9)
+
 ---
 
 class: has-code
 
-## ES2017: rest/spread properties
+## ES2018: rest/spread properties
 
 ```js
 var obj = {two: 2, bar: 'bar', fn: function(){}, a: 1, b: 2, c: 3};
@@ -1009,11 +1114,7 @@ var other = Object.keys(obj)
 ]
 .after[
 ```js
-const obj2 = {
-  ...obj,
-  d: 4,
-  e: 5
-};
+const obj2 = {...obj, d: 4, e: 5};
 const {two, bar, fn, ...other} = obj;
 ```
 ]
@@ -1021,21 +1122,9 @@ const {two, bar, fn, ...other} = obj;
 
 ---
 
-# ES2017: More features
-
-Finished:
-
-- String.prototype.padStart/padEnd
-- Object.entries
-- Object.values
-- Trailing commas in function parameter lists
-  `function(a, b, c,) {...}`
-
----
-
 class: has-code
 
-# ES2017: More features
+## ES2018: More features
 
 Asynchronous iterables (Stage 3)  
 ```js
@@ -1046,7 +1135,7 @@ for await (const c of createIterable()) {
 
 --
 
-SIMD (Stage 2)
+### ES2018: SIMD
 
 ```js
 var a = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
@@ -1058,11 +1147,18 @@ var c = SIMD.float32x4.add(a,b);
 
 ---
 
-class: normal, center, middle
+class: normal, center
 
-## OMG THIS IS SO AWESOME, HOW CAN I GET ME SOME OF THAT ES8 GOODNESS?
+## OMG THIS IS SO AWESOME, HOW CAN I **GET ME SOME OF THAT ES9 GOODNESS**?
+--
 
-Well, Babel of course! https://babeljs.io/
+A lot of it is already available, in the latest release of Node.js or **in
+your web browser**.
+
+--
+
+And if you need to support older environments, there's always Babel!
+https://babeljs.io/
 
 
 ---
@@ -1090,89 +1186,6 @@ class: bots-is, cover
         highlightLines: true,
         highlightSpans: false // We need ES6 backticks
       });
-      var HomeView = Backbone.View.extend({
-        template: _.template('<h1>Hello World!</h1>' +
-          '<p>Random number: <span><%- number %></span> (click for another)</p>' +
-          '<textarea>Notes...</textarea>'),
-
-        events: {
-          'click p': 'render',
-          'keydown textarea': 'stopPropagation',
-          'keypress textarea': 'stopPropagation',
-        },
-
-        stopPropagation: function(e) {
-          e.stopPropagation();
-        },
-
-        randomNumber: function() {
-          return Math.floor(Math.random() * 100) + 1;
-        },
-
-        render: function() {
-          this.$el.html(this.template({
-            number: this.randomNumber()
-          }));
-        }
-      });
-      var HomeView2 = Backbone.View.extend({
-        template: _.template('<h1>Hello World!</h1>' +
-          '<p class="_button">Random number: ' +
-            '<span><%- number %></span> (click for another)' +
-          '</p>' +
-          '<textarea>Notes...</textarea>'),
-        events: {
-          'click ._button': 'newNumber',
-          'keydown textarea': 'stopPropagation',
-          'keypress textarea': 'stopPropagation',
-        },
-        stopPropagation: function(e) {
-          e.stopPropagation();
-        },
-        randomNumber: function() {
-          return Math.floor(Math.random() * 100) + 1;
-        },
-        newNumber: function(e) {
-          this.$("._button span").html(this.randomNumber());
-        },
-        render: function() {
-          this.$el.html(this.template({
-            number: this.randomNumber()
-          }));
-        }
-      });
-      const backbone1 = new HomeView();
-      $("#backbone1").append(backbone1.el);
-      backbone1.render();
-      const backbone2 = new HomeView2();
-      $("#backbone2").append(backbone2.el);
-      backbone2.render();
-      const randomNumber = function() {return Math.floor(Math.random() * 100) + 1;}
-
-      const stopPropagation = (e) => e.stopPropagation();
-
-      const HomeView3 = React.createClass({
-        getInitialState: function() {
-          return {randomNumber: randomNumber()};
-        },
-
-        newNumber: function() {
-          this.setState({randomNumber: randomNumber()});
-        },
-
-        render: function() {
-          return (
-            React.createElement('div', null,
-              React.createElement('h1', null, 'Hello World!'),
-              React.createElement('p', {onClick: this.newNumber.bind(this)},
-                'Random number: ', this.state.randomNumber, ' (click for another)'
-              ),
-              React.createElement('textarea', {onKeyPress: stopPropagation, onKeyDown: stopPropagation}, 'Notes...')
-            )
-          );
-        }
-      });
-      ReactDOM.render(React.createElement(HomeView3), $("#react1")[0]);
     </script>
   </body>
 </html>
