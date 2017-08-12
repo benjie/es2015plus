@@ -41,11 +41,21 @@
   text-align: left;
 }
 
-/* ----- BOTS styles ----- */
-
-.hide {
-  visibility: hidden;
+.remark-notes-preview h1,
+.remark-notes-preview h2,
+.remark-notes-preview h3,
+.remark-notes-preview p,
+.remark-notes-preview ol,
+.remark-notes h1,
+.remark-notes h2,
+.remark-notes h3,
+.remark-notes p,
+.remark-notes ol {
+  color: white;
 }
+
+
+/* ----- BOTS styles ----- */
 
 .toprightgap {
   position: absolute;
@@ -66,9 +76,18 @@
   right: 30px;
 }
 
+.slidesLocation p {
+  font-size: 1.8rem;
+}
+
 .slidesLocation p a {
-  color: white;
-  text-shadow: 1px 1px 2px black;
+  color: black;
+  text-shadow: 1px 1px 2px transparent;
+}
+
+.slidesLocation.onWhite p a {
+  color: black;
+  text-shadow: 1px 1px 2px white;
 }
 
 #backbone1 h1,
@@ -98,23 +117,30 @@ h1#react-101 {
   margin-top: 40px;
 }
 
-.title-page .bots-logo-container {
+.title-page .postgraphql-logo-container {
   position: absolute;
   right: 0;
-  bottom: 0;
-  width: 400px;
-  height: 96px;
+  bottom: 30px;
+  width: 200px;
+  height: 200px;
   padding: 0 50px 50px 0;
 }
 
-.title-page .bots-logo {
+.title-page .postgraphql-logo {
   width: 100%;
+  border-radius: 13px;
+}
+
+.postgraphql-logo.h1 {
+  width: 40%;
+  margin-top: 30px;
 }
 
 body {
   font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
 }
-h1, h2, h3, p, ol, ul {
+
+h1, h2, h3, p, ol {
   font-weight: normal;
   color: #3d3e56;
 }
@@ -123,10 +149,9 @@ p, h3 {
   font-size: 1.8em;
 }
 
-ol, ul {
-  font-size: 1.7em
+ol {
+  font-size: 1.5em;
 }
-
 
 
 a,
@@ -217,8 +242,8 @@ pre + pre {
   font-size: 1.4em;
 }
 
-.bots-is {
-  background-image: url('images/bots-bg.png');
+.postgraphql-is {
+  background-image: url('images/postgraphql-bg.png');
 }
 
 .hot-reload {
@@ -229,7 +254,7 @@ pre + pre {
   background-image: url('images/hot-storybook.gif');
 }
 
-.bots-is h1, .bots-is h2, .bots-is h3, .bots-is a {
+.postgraphql-is h1, .postgraphql-is h2, .postgraphql-is h3, .postgraphql-is a {
   color: black;
   text-shadow: 1px 1px 2px white;
 }
@@ -294,6 +319,10 @@ pre + pre {
 .remark-code-line-highlighted,
 .remark-code-span-highlighted {
   background-color: #333;
+  border-left: 10px solid white;
+  border-right: 10px solid white;
+  margin: 0 -10px;
+  border-image: linear-gradient(to right, #ccc, #333, #333, #ccc) 1 40%;
 }
 
 .zoom-code .remark-code {
@@ -385,34 +414,3 @@ code .hilight,
 code .hilight * {
   color: #5DC744 !important;
 }
-
-/*************/
-.beforeAfter {
-  display: flex;
-    width: 100%;
-}
-.before,
-.after {
-  box-sizing: border-box;
-  padding: 10px;
-  width: 50%;
-  flex: 0 0 50%;
-}
-
-.before {
-  border-right: 1px solid #999;
-}
-
-.before:before,
-.after:before {
-  color: white;
-  font-size: 2em;
-}
-
-.before:before {
-  content: 'Before';
-}
-.after:before {
-  content: 'After';
-}
-
