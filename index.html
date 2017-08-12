@@ -564,7 +564,7 @@ const results = db.query(
 --
 
 .aside[
-https://github.com/calebmer/pg-sql
+https://github.com/graphile/pg-sql2
 ]
 ---
 
@@ -729,7 +729,7 @@ for await (const c of createIterable()) {
 
 --
 
-### ES2018: SIMD
+### SIMD
 
 ```js
 var a = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
@@ -737,6 +737,19 @@ var b = SIMD.float32x4(5.0, 6.0, 7.0, 8.0);
 var c = SIMD.float32x4.add(a,b);
 ```
 
+---
+
+# More Stage 3 features
+
+- import()
+- RegExp lookbehind
+- RegExp unicode property escapes
+- RegExp named capture groups
+- RegExp `s` flag to make `.` equivalent to `[^]` / `[\s\S]`
+- Promise.prototype.finally
+- `BigInt` - arbitrary precision integers
+- Class fields (public and private)
+- `try { ... } catch { ... }` (no catch parameter)
 
 
 ---
