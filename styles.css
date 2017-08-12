@@ -58,6 +58,10 @@
 
 /* ----- BOTS styles ----- */
 
+.hide {
+  visibility: hidden;
+}
+
 .toprightgap {
   position: absolute;
   bottom: 0px;
@@ -456,5 +460,35 @@ code .lolight * {
 
 code .hilight,
 code .hilight * {
-  color: #5dc744 !important;
+  color: #5DC744 !important;
+}
+
+/*************/
+.beforeAfter {
+  display: flex;
+    width: 100%;
+}
+.before,
+.after {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 50%;
+  flex: 0 0 50%;
+}
+
+.before {
+  border-right: 1px solid #999;
+}
+
+.before:before,
+.after:before {
+  color: white;
+  font-size: 2em;
+}
+
+.before:before {
+  content: 'Before';
+}
+.after:before {
+  content: 'After';
 }
