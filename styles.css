@@ -145,6 +145,7 @@ h1,
 h2,
 h3,
 p,
+ul,
 ol {
   font-weight: normal;
   color: #3d3e56;
@@ -155,6 +156,7 @@ h3 {
   font-size: 1.8em;
 }
 
+ul,
 ol {
   font-size: 1.5em;
 }
