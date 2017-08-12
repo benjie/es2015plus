@@ -566,6 +566,53 @@ const results = db.query(
 .aside[
 https://github.com/graphile/pg-sql2
 ]
+
+---
+
+class: center, has-code
+
+## ES2015: import and export
+
+--
+
+```js
+import defaultMember from "module-name";
+import { member1, member2 as alias2, ... } from "module-name";
+import defaultMember, { member, ... } from "module-name";
+import * as varName from "module-name";
+import defaultMember, * as varName from "module-name";
+```
+
+--
+
+```js
+import "module-name";
+```
+
+--
+
+```js
+export default expression;
+export default function (…) { … }
+export default class Foo { … }
+```
+
+--
+
+```js
+export { name1, name2, …, nameN };
+export { variable1 as name1, variable2 as name2, …, nameN };
+export const one = 1;
+```
+
+--
+
+```js
+export * from …;
+export { name1, name2, …, nameN } from …;
+export { import1 as name1, import2 as name2, …, nameN } from …;
+```
+
 ---
 
 # ES2015: More features
